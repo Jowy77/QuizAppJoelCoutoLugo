@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -18,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
@@ -40,7 +42,7 @@ fun isRespuestaCorrecta(pregunta: Pregunta, respuestaUsuario: Boolean): Boolean 
 }
 
 @Composable
-fun PantallaModoNormal(navController: NavHostController?) {
+fun EasyModeView(navController: NavHostController?) {
 
     val preguntas = listOf<Pregunta>(
         Pregunta(
@@ -59,7 +61,7 @@ fun PantallaModoNormal(navController: NavHostController?) {
             painterResource(id = R.drawable.hunter)
         ),
         Pregunta(
-            "¿Todo en uno y uno es todo?",
+            "¿Todo es uno y uno es todo?",
             true,
             painterResource(id = R.drawable.fullmetal)
         ),
@@ -72,7 +74,7 @@ fun PantallaModoNormal(navController: NavHostController?) {
 
     var preguntaActual by remember { mutableStateOf(0) }
     var aciertos by remember { mutableStateOf(0) }
-    var numeroDePreguntas by remember { mutableStateOf(0) }
+    var numeroPreguntas by remember { mutableStateOf(0) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -106,13 +108,14 @@ fun PantallaModoNormal(navController: NavHostController?) {
                     if (respuesta) {
                         aciertos++
                     }
-                    numeroDePreguntas++
-
-                    if (numeroDePreguntas < NUMERO_DE_PREGUNTAS) {
+                    numeroPreguntas++
+                    if (preguntaActual < preguntas.size-1) {
                         preguntaActual++
+                    } else {
+                        preguntaActual = 0
                     }
-                    if (numeroDePreguntas == NUMERO_DE_PREGUNTAS) {
-                        navController?.navigate(Rutas.PantallaMensajeNota.ruta + "/${aciertos.toString()}")
+                    if (numeroPreguntas == NUMERO_DE_PREGUNTAS) {
+                        navController?.navigate(Rutas.ResultadosView.ruta + "/${aciertos.toString()}")
                     }
                 },
                 shape = RectangleShape,
@@ -122,6 +125,7 @@ fun PantallaModoNormal(navController: NavHostController?) {
                 modifier = Modifier
                     .padding(8.dp)
                     .weight(1f)
+                    .clip(CircleShape)
             ) {
                 Text(text = "VERDADERO")
 
@@ -133,13 +137,14 @@ fun PantallaModoNormal(navController: NavHostController?) {
                         if (respuesta) {
                             aciertos++
                         }
-                        numeroDePreguntas++
-
-                        if (numeroDePreguntas < NUMERO_DE_PREGUNTAS) {
+                        numeroPreguntas++
+                        if (preguntaActual < preguntas.size-1) {
                             preguntaActual++
+                        } else {
+                            preguntaActual = 0
                         }
-                        if (numeroDePreguntas == NUMERO_DE_PREGUNTAS) {
-                            navController?.navigate(Rutas.PantallaMensajeNota.ruta + "/${aciertos.toString()}")
+                        if (numeroPreguntas == NUMERO_DE_PREGUNTAS) {
+                            navController?.navigate(Rutas.ResultadosView.ruta + "/${aciertos.toString()}")
                         }
                     },
             shape = RectangleShape,
@@ -149,6 +154,7 @@ fun PantallaModoNormal(navController: NavHostController?) {
             modifier = Modifier
                 .padding(8.dp)
                 .weight(1f)
+                .clip(CircleShape)
             ) {
             Text(text = "FALSO")
         }
@@ -170,6 +176,7 @@ fun PantallaModoNormal(navController: NavHostController?) {
                 modifier = Modifier
                     .padding(8.dp)
                     .weight(1f)
+                    .clip(CircleShape)
             ) {
                 Text(text = "PREV")
             }
@@ -185,6 +192,7 @@ fun PantallaModoNormal(navController: NavHostController?) {
                 modifier = Modifier
                     .padding(8.dp)
                     .weight(1f)
+                    .clip(CircleShape)
             ) {
                 Text(text = "RANDOM")
             }
@@ -204,6 +212,7 @@ fun PantallaModoNormal(navController: NavHostController?) {
                 modifier = Modifier
                     .padding(8.dp)
                     .weight(1f)
+                    .clip(CircleShape)
             ) {
                 Text(text = "NEXT")
             }
@@ -216,5 +225,5 @@ fun PantallaModoNormal(navController: NavHostController?) {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewModoNormal() {
-    PantallaModoNormal(navController = null)
+    EasyModeView(navController = null)
 }

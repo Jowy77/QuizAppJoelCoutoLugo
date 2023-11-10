@@ -33,7 +33,7 @@ import com.example.quizappjoelcoutolugo.ruta.Rutas
 import com.example.quizappjoelcoutolugo.ui.theme.colorPersonalizado2
 
 @Composable
-fun PantallaMensajeNota(aciertos: Int, navController: NavHostController?) {
+fun ResultadosView(aciertos: Int, navController: NavHostController?) {
 
     val aprobado: Painter = painterResource(id = R.drawable.goku)
     val suspendido: Painter = painterResource(id = R.drawable.suspendido)
@@ -75,7 +75,7 @@ fun PantallaMensajeNota(aciertos: Int, navController: NavHostController?) {
         )
         Button(
             onClick = {
-                navController?.navigate(Rutas.PantallaPrincipal.ruta)
+                navController?.navigate(Rutas.HomeView.ruta)
             },
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
@@ -93,5 +93,5 @@ fun PantallaMensajeNota(aciertos: Int, navController: NavHostController?) {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewMensajeNotas() {
-    PantallaMensajeNota(1, navController = null)
+    ResultadosView(1, navController = null)
 }

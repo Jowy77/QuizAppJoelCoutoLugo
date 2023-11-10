@@ -16,23 +16,23 @@ fun GrafoNavegacion(){
 
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Rutas.PantallaPrincipal.ruta) {
+    NavHost(navController = navController, startDestination = Rutas.HomeView.ruta) {
 
 
-        composable(Rutas.PantallaPrincipal.ruta){
-            PantallaPrincipal(navController = navController)
+        composable(Rutas.HomeView.ruta){
+            HomeView(navController = navController)
         }
 
-        composable(Rutas.PantallaModoNormal.ruta){
-            PantallaModoNormal(navController = navController)
+        composable(Rutas.EasyModeView.ruta){
+            EasyModeView(navController = navController)
         }
-        composable(Rutas.PantallaModoExamen.ruta){
-            PantallaModoExamen(navController = navController)
+        composable(Rutas.ExamenView.ruta){
+            ExamenView(navController = navController)
         }
-        composable(Rutas.PantallaMensajeNota.ruta + "/{aciertos}") { llamada ->
+        composable(Rutas.ResultadosView.ruta + "/{aciertos}") { llamada ->
             val aciertos = llamada.arguments?.getString("aciertos")
             if (aciertos != null) {
-                PantallaMensajeNota(aciertos = aciertos.toInt(), navController = navController)
+                ResultadosView(aciertos = aciertos.toInt(), navController = navController)
             }
         }
     }
